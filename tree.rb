@@ -2,7 +2,6 @@ require_relative 'node'
 
 # Class that creates a balanced Binary Search Tree
 class Tree
-
   def initialize(unsorted_ary)
     # Initialize the tree class
     ary = sort_and_delete_dupes(unsorted_ary)
@@ -27,7 +26,6 @@ class Tree
   def merge(l, r)
     # Merge two sorted arrays
     sorted = []
-
     until l.size.zero? || r.size.zero?
       if l[0] > r[0]
         sorted.push(l[0])
@@ -37,7 +35,6 @@ class Tree
         r.shift
       end
     end
-
     sorted.push(l) unless l.size.zero?
     sorted.push(r) unless r.size.zero?
     sorted.flatten
@@ -59,5 +56,4 @@ class Tree
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
-
 end
