@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'node'
 
 # Class that creates a balanced Binary Search Tree
@@ -27,7 +29,7 @@ class Tree
     # Merge two sorted arrays
     sorted = []
     until l.size.zero? || r.size.zero?
-      if l[0] > r[0]
+      if l[0] < r[0]
         sorted.push(l[0])
         l.shift
       else
@@ -42,9 +44,11 @@ class Tree
 
   def remove_duplicates(sorted)
     # Remove duplicates from a sorted array and return that array
-    sorted.each_with_index do |item, idx|
-      delete_at(idx) if sorted.slice(idx, size + 1).contains?(item) # delete if we know there is another one later
+    new_ary = []
+    sorted.each do |item|
+      new_ary.push(item) unless new_ary.any?(item)
     end
+    new_ary
   end
 
   def build_tree(sorted_ary)
