@@ -51,8 +51,17 @@ class Tree
     new_ary
   end
 
-  def build_tree(sorted_ary)
+  def build_tree(sorted)
     # Returns the level 0 root node
+
+    # 1) Get the Middle of the array and make it root.
+    mid_index = sorted/2
+    mid_node = Node.new(sorted[mid_index], sorted[mid_index - 1], sorted[mid_index + 1])
+    # 2) Recursively do same for left half and right half.
+      # a) Get the middle of left half and make it left child of the root
+          # created in step 1.
+      # b) Get the middle of right half and make it right child of the
+          # root created in step 1.
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
