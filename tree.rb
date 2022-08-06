@@ -7,7 +7,7 @@ class Tree
   def initialize(unsorted_ary)
     # Initialize the tree class
     ary = sort_and_delete_dupes(unsorted_ary)
-    @root = build_tree(ary)
+    @root = build_tree(ary, 0, (ary.size - 1))
   end
 
   def sort_and_delete_dupes(unsorted_ary)
@@ -51,17 +51,17 @@ class Tree
     new_ary
   end
 
-  def build_tree(sorted)
+  def build_tree(sorted, start_idx, end_idx)
     # Returns the level 0 root node
+    return nil if start_idx > end_idx
 
-    # 1) Get the Middle of the array and make it root.
-    mid_index = sorted/2
-    mid_node = Node.new(sorted[mid_index], sorted[mid_index - 1], sorted[mid_index + 1])
-    # 2) Recursively do same for left half and right half.
-      # a) Get the middle of left half and make it left child of the root
-          # created in step 1.
-      # b) Get the middle of right half and make it right child of the
-          # root created in step 1.
+    mid_idx = (start_idx + end_idx)/2
+    new_node = Node.new(sorted[mid_idx])
+
+    new_node.left = build_tree(sorted, start_idx, mid_idx - 1)
+    new_node.right = build_tree(sorted, mid_idx + 1, end_idx)
+
+    new_node
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
