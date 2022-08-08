@@ -64,6 +64,32 @@ class Tree
     new_node
   end
 
+  def insert(value)
+    # Insert a node initialized with value to the BST
+    new_node = Node.new(value)
+    curr_node = @root
+
+    loop do
+      if value < curr_node.data
+        if curr_node.left.nil?
+          curr_node.left = new_node
+          break
+        else
+          curr_node = curr_node.left
+        end
+      elsif value > curr_node.data
+        if curr_node.right.nil?
+          curr_node.right = new_node
+          break
+        else
+          curr_node = curr_node.right
+        end
+      else # number is equal (already in tree), do not add
+        break
+      end
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
