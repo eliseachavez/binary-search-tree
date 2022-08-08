@@ -8,6 +8,7 @@ class Tree
     # Initialize the tree class
     ary = sort_and_delete_dupes(unsorted_ary)
     @root = build_tree(ary, 0, (ary.size - 1))
+    @size = ary.size
   end
 
   def sort_and_delete_dupes(unsorted_ary)
@@ -64,6 +65,17 @@ class Tree
     new_node
   end
 
+  def tree_to_ary(curr_node, ary)
+    # Traverse and return array of tree
+    ary.push(tree_to_ary(curr_node.left, ary)) unless curr_node.left.nil?
+    ary.push(tree_to_ary(curr_node.right, ary)) unless curr_node.right.nil?
+    if curr_node == @root
+      ary.push(curr_node.data)
+      return ary
+    end
+    curr_node.data
+  end
+
   def insert(value)
     # Insert a node initialized with value to the BST
     new_node = Node.new(value)
@@ -73,6 +85,7 @@ class Tree
       if value < curr_node.data
         if curr_node.left.nil?
           curr_node.left = new_node
+          @size += 1
           break
         else
           curr_node = curr_node.left
@@ -80,6 +93,7 @@ class Tree
       elsif value > curr_node.data
         if curr_node.right.nil?
           curr_node.right = new_node
+          @size += 1
           break
         else
           curr_node = curr_node.right
@@ -87,6 +101,70 @@ class Tree
       else # number is equal (already in tree), do not add
         break
       end
+    end
+  end
+
+  def delete(value)
+    # Delete a node with passed value
+    curr_node = @root
+    prev_node = nil
+
+    loop do
+      if value == curr_node.data
+        if has_children?(curr_node)
+          remove_parent_node(@root, curr_node.data)
+          break
+        else
+          remove_leaf_node(prev_node, curr_node)
+          break
+        end
+      elsif value < curr_node.data
+        if has_child?(curr_node.left)
+          prev_node = curr_node
+          curr_node = curr_node.left
+        else
+          puts "value not found; could not delete #{value}"
+          break
+        end
+      else # value > curr_node.data
+        if has_child?(curr_node.right)
+          prev_node = curr_node
+          curr_node = curr_node.right
+        else
+          puts "value not found; could not delete #{value}"
+          break
+        end
+      end
+    end
+  end
+
+  def remove_parent_node(node, data)
+    tree_ary = tree_to_ary(node, [])
+    tree_ary.delete(data) # because root would be last one added to ary from above method
+    sorted_root_removed_ary = sort_and_delete_dupes(tree_ary)
+    @root = build_tree(sorted_root_removed_ary, 0, sorted_root_removed_ary.size - 1)
+    @size -= 1
+  end
+
+  def remove_leaf_node(prev_node, curr_node)
+    # "Delete" a node by setting pointers to nil
+    if prev_node.data > curr_node.data
+      prev_node.left = nil
+    elsif prev_node.data < curr_node.data
+      prev_node.right = nil
+    end
+    @size -= 1
+  end
+
+  def has_child?(pointer)
+    pointer.nil? ? false : true
+  end
+
+  def has_children?(node)
+    if node.left || node.right
+      true
+    else
+      false
     end
   end
 

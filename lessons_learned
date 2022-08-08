@@ -1,0 +1,1 @@
+* There is no explicit deleting of objects in Ruby. So since everything is a pointer in Ruby, to delete you just make the pointer point to nil, then the garbage collector takes care of it
