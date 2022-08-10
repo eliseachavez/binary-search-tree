@@ -37,4 +37,6 @@ BST.pretty_print
 node = BST.find(5)
 puts "node found with 5 is #{node}"
 
-
+BST.level_order_rec do |item|
+   puts item
+end

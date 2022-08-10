@@ -177,4 +177,21 @@ class Tree
       find_rec(node.left, value)
     end
   end
+
+  def level_order_rec(queue=[@root], &blk)
+    #return tree_to_ary(@root, []) unless block_given?
+    return if queue.size.zero?
+
+
+    node = queue.shift
+    blk.call(node.data)
+
+    queue.push(node.left) unless node.left.nil?
+    queue.push(node.right) unless node.right.nil?
+    level_order_rec(queue, &blk)
+  end
+
+  def level_order_it
+  end
+
 end
