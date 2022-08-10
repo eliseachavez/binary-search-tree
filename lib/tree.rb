@@ -106,66 +106,55 @@ class Tree
 
   def delete(value)
     # Delete a node with passed value
-    curr_node = @root
-    prev_node = nil
+    return nil if @root.nil?
 
-    loop do
-      if value == curr_node.data
-        if has_children?(curr_node)
-          remove_parent_node(@root, curr_node.data)
-          break
-        else
-          remove_leaf_node(prev_node, curr_node)
-          break
-        end
-      elsif value < curr_node.data
-        if has_child?(curr_node.left)
-          prev_node = curr_node
-          curr_node = curr_node.left
-        else
-          puts "value not found; could not delete #{value}"
-          break
-        end
-      else # value > curr_node.data
-        if has_child?(curr_node.right)
-          prev_node = curr_node
-          curr_node = curr_node.right
-        else
-          puts "value not found; could not delete #{value}"
-          break
-        end
+    delete_rec(@root, value)
+  end
+
+  def  delete_rec(node, value)
+    # 1. FIND
+    if value < node.data
+      node.left = delete_rec(node.left, value)
+    elsif value > node.data
+      node.right = delete_rec(node.right, value)
+    else # FOUND! value == node.data! FOUND! ready to actually delete
+      #@root.data = find_min(node.right).data if node.data == @root.data
+
+      # 2. DELETE
+      # case 1: no children (a leaf node)
+      if node.left.nil? && node.right.nil?
+        nil
+      # case 2a: one right child -- don't need to find a next biggest
+      elsif node.left.nil?
+        temp = node # temp is 9
+        node = node.right # 9 is rpelaced by 23 in its spot and is now 67's left child# because we have no node on the left
+        temp.right = nil #unassign 9's pointer to 23 and now 9 is free floating
+        node
+      # case 2b: one left child -- don't need to find a next biggest
+      elsif node.right.nil?
+        temp = node
+        node = node.left
+        temp.left = nil
+        node
+      # case 3: two children
+      else
+        # need to find the next biggest node, which will replace current node!
+        next_biggest = find_min(node.right)
+        # now replace current node with the next biggest node, but DATA ONLY
+        node.data = next_biggest.data
+        # ready to DELETE the next biggest! now that the next biggest is found
+        node.right = delete_rec(node.right, next_biggest.data)
       end
     end
+    node
   end
 
-  def remove_parent_node(node, data)
-    tree_ary = tree_to_ary(node, [])
-    tree_ary.delete(data) # because root would be last one added to ary from above method
-    sorted_root_removed_ary = sort_and_delete_dupes(tree_ary)
-    @root = build_tree(sorted_root_removed_ary, 0, sorted_root_removed_ary.size - 1)
-    @size -= 1
-  end
-
-  def remove_leaf_node(prev_node, curr_node)
-    # "Delete" a node by setting pointers to nil
-    if prev_node.data > curr_node.data
-      prev_node.left = nil
-    elsif prev_node.data < curr_node.data
-      prev_node.right = nil
+  def find_min(node)
+    # Find and return the smallest node in the right subtree
+    until node.left.nil?
+      node = node.left
     end
-    @size -= 1
-  end
-
-  def has_child?(pointer)
-    pointer.nil? ? false : true
-  end
-
-  def has_children?(node)
-    if node.left || node.right
-      true
-    else
-      false
-    end
+    node
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)

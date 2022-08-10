@@ -33,7 +33,7 @@ BST.pretty_print
 BST.delete(9)
 BST.pretty_print
 # request to delete a node that doesn't exist
-BST.delete(18)
+#BST.delete(18)
 
 
 
