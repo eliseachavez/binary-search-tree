@@ -162,4 +162,19 @@ class Tree
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
+
+  def find(value)
+    # Returns node with the given value
+    find_rec(@root, value)
+  end
+
+  def find_rec(node, value)
+    if value == node.data
+      return node
+    elsif value > node.data
+      find_rec(node.right, value)
+    else # value < node.data
+      find_rec(node.left, value)
+    end
+  end
 end

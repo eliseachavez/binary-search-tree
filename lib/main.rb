@@ -34,6 +34,7 @@ BST.delete(9)
 BST.pretty_print
 # request to delete a node that doesn't exist
 #BST.delete(18)
-
+node = BST.find(5)
+puts "node found with 5 is #{node}"
 
 
