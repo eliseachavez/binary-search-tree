@@ -37,7 +37,7 @@ BST.pretty_print
 node = BST.find(5)
 puts "node found with 5 is #{node}"
 
-BST.level_order_rec do |item|
+BST.level_order do |item|
    puts item
 end
 
@@ -45,3 +45,9 @@ BST.level_order_it do |item|
   item *= 2
   puts "this tree node times 2 is #{item}"
 end
+
+# call level order without block, which should return an array of tree
+ary = BST.level_order
+puts ary
+ary = BST.level_order_it
+puts ary

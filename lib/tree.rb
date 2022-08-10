@@ -65,14 +65,12 @@ class Tree
     new_node
   end
 
-  def tree_to_ary(curr_node, ary)
+  def tree_to_ary(curr_node = @root, ary)
     # Traverse and return array of tree
+    return ary if curr_node == @root && ary.size == @size
+
     ary.push(tree_to_ary(curr_node.left, ary)) unless curr_node.left.nil?
     ary.push(tree_to_ary(curr_node.right, ary)) unless curr_node.right.nil?
-    if curr_node == @root
-      ary.push(curr_node.data)
-      return ary
-    end
     curr_node.data
   end
 
@@ -123,18 +121,21 @@ class Tree
       # 2. DELETE
       # case 1: no children (a leaf node)
       if node.left.nil? && node.right.nil?
+        @size -= 1
         nil
       # case 2a: one right child -- don't need to find a next biggest
       elsif node.left.nil?
         temp = node # temp is 9
         node = node.right # 9 is rpelaced by 23 in its spot and is now 67's left child# because we have no node on the left
         temp.right = nil #unassign 9's pointer to 23 and now 9 is free floating
+        @size -= 1
         node
       # case 2b: one left child -- don't need to find a next biggest
       elsif node.right.nil?
         temp = node
         node = node.left
         temp.left = nil
+        @size -= 1
         node
       # case 3: two children
       else
@@ -178,8 +179,14 @@ class Tree
     end
   end
 
+  def level_order(&blk)
+    return tree_to_ary([]) unless block_given?
+
+    level_order_rec(&blk)
+  end
+
   def level_order_rec(queue = [@root], &blk)
-    #return tree_to_ary(@root, []) unless block_given?
+    # Recursively traverse a tree in level order, passing each node to the block
     return if queue.size.zero?
 
 
@@ -192,6 +199,9 @@ class Tree
   end
 
   def level_order_it(queue = [@root])
+    # Iteratively traverse a tree in level order, passing each node to the block
+    return tree_to_ary([]) unless block_given?
+
     until queue.size.zero?
       node = queue.shift
       yield node.data
