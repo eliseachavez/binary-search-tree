@@ -40,3 +40,8 @@ puts "node found with 5 is #{node}"
 BST.level_order_rec do |item|
    puts item
 end
+
+BST.level_order_it do |item|
+  item *= 2
+  puts "this tree node times 2 is #{item}"
+end
