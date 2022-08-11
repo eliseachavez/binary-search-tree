@@ -71,10 +71,6 @@ class Tree
 
     tree_to_ary(curr_node.left, ary) unless curr_node.left.nil?
     tree_to_ary(curr_node.right, ary) unless curr_node.right.nil?
-    # if ary.size == @size + 2
-    #   ary.push(curr_node.data)
-    #   return ary
-    # end
     ary.push(curr_node.data)
   end
 
@@ -214,4 +210,28 @@ class Tree
     end
   end
 
+  def inorder(node = @root, &blk)
+    # Inorder traversal of tree
+    return tree_to_ary([]) unless block_given?
+  end
+
+  def preorder(node = @root, &blk)
+    # Preorder traversal of tree
+    return tree_to_ary([]) unless block_given?
+
+    # escape condition
+    return if node.nil?
+
+    # visit root
+    blk.call(node.data)
+    # visit left
+    preorder(node.left, &blk)
+    # visit right
+    preorder(node.right, &blk)
+  end
+
+  def postorder
+    # Postorder traversal of tree
+    return tree_to_ary([]) unless block_given?
+  end
 end

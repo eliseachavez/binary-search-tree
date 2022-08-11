@@ -18,6 +18,20 @@ BST.pretty_print
 BST.insert(0)
 BST.pretty_print
 
+# TRAVERSALS ############################################
+# call inorder, postorder, preorder with blocks
+BST.preorder do |item|
+  puts "#{item} in preorder!"
+end
+
+BST.inorder do |item|
+  puts "#{item} is in the tree, yipee!"
+end
+
+BST.postorder do |item|
+  puts "#{item} in postorder!"
+end
+
 # DELETIONS #############################################
 # delete ROOT node
 puts 'delete the ROOT node, 8'
@@ -34,14 +48,12 @@ BST.pretty_print
 puts 'delete a parent node, 324'
 BST.delete(324)
 BST.pretty_print
-puts 'delete a parent node, 9'
-BST.delete(9)
-BST.pretty_print
 # request to delete a node that doesn't exist
 # BST.delete(18)
 node = BST.find(5)
 puts "node found with 5 is #{node}"
 
+# LEVEL ORDER ###########################################
 BST.level_order do |item|
   puts item
 end
