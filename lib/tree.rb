@@ -109,7 +109,7 @@ class Tree
     delete_rec(@root, value)
   end
 
-  def  delete_rec(node, value)
+  def delete_rec(node, value)
     # 1. FIND
     if value < node.data
       node.left = delete_rec(node.left, value)
@@ -213,6 +213,16 @@ class Tree
   def inorder(node = @root, &blk)
     # Inorder traversal of tree
     return tree_to_ary([]) unless block_given?
+
+    # escape condition
+    return if node.nil?
+
+    # visit left
+    inorder(node.left, &blk)
+    # visit root
+    blk.call(node.data)
+    # visit right
+    inorder(node.right, &blk)
   end
 
   def preorder(node = @root, &blk)
@@ -230,8 +240,18 @@ class Tree
     preorder(node.right, &blk)
   end
 
-  def postorder
+  def postorder(node = @root, &blk)
     # Postorder traversal of tree
     return tree_to_ary([]) unless block_given?
+
+    # escape case
+    return if node.nil?
+
+    # visit left
+    postorder(node.left, &blk)
+    # visit right
+    postorder(node.right, &blk)
+    # visit root
+    blk.call(node.data)
   end
 end
