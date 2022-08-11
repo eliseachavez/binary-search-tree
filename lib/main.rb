@@ -69,3 +69,11 @@ puts ary.to_s
 ary = BST.level_order_it
 puts ary.to_s
 BST.pretty_print
+
+# HEIGHT ################################################
+height = BST.height(6345)
+puts "height of BST(6345) is #{height}" # should be 1
+height = BST.height(4)
+puts "height of BST(6345) is #{height}" # should be 2
+height = BST.height(9)
+puts "height of BST(6345) is #{height}" # should be 3 (9-4-5-7)

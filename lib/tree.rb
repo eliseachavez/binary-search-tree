@@ -170,8 +170,10 @@ class Tree
   end
 
   def find_rec(node, value)
+    return nil if node.nil?
+
     if value == node.data
-      return node
+      node
     elsif value > node.data
       find_rec(node.right, value)
     else # value < node.data
@@ -253,5 +255,22 @@ class Tree
     postorder(node.right, &blk)
     # visit root
     blk.call(node.data)
+  end
+
+  def height(num)
+    # Accepts a node and returns its height in the tree
+    node = find(num)
+
+    height_rec(node)
+  end
+
+  def height_rec(node)
+    return -1 if node.nil?
+
+    max(height_rec(node.left), height_rec(node.right)) + 1
+  end
+
+  def max(a, b)
+    a > b ? a : b
   end
 end
