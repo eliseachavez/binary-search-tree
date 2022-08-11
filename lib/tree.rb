@@ -126,7 +126,7 @@ class Tree
       # case 1: no children (a leaf node)
       if node.left.nil? && node.right.nil?
         @size -= 1
-        nil
+        node = nil
       # case 2a: one right child -- don't need to find a next biggest
       elsif node.left.nil?
         temp = node # temp is 9
