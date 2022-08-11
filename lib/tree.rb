@@ -67,11 +67,15 @@ class Tree
 
   def tree_to_ary(curr_node = @root, ary)
     # Traverse and return array of tree
-    return ary if curr_node == @root && ary.size == @size
+    return ary if ary.size == @size + 2
 
-    ary.push(tree_to_ary(curr_node.left, ary)) unless curr_node.left.nil?
-    ary.push(tree_to_ary(curr_node.right, ary)) unless curr_node.right.nil?
-    curr_node.data
+    tree_to_ary(curr_node.left, ary) unless curr_node.left.nil?
+    tree_to_ary(curr_node.right, ary) unless curr_node.right.nil?
+    # if ary.size == @size + 2
+    #   ary.push(curr_node.data)
+    #   return ary
+    # end
+    ary.push(curr_node.data)
   end
 
   def insert(value)
@@ -126,8 +130,8 @@ class Tree
       # case 2a: one right child -- don't need to find a next biggest
       elsif node.left.nil?
         temp = node # temp is 9
-        node = node.right # 9 is rpelaced by 23 in its spot and is now 67's left child# because we have no node on the left
-        temp.right = nil #unassign 9's pointer to 23 and now 9 is free floating
+        node = node.right # 9 is replaced by 23 in its spot and is now 67's left child# because we have no node on the left
+        temp.right = nil # unassign 9's pointer to 23 and now 9 is free floating
         @size -= 1
         node
       # case 2b: one left child -- don't need to find a next biggest
