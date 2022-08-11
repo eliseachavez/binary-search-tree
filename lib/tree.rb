@@ -67,7 +67,7 @@ class Tree
 
   def tree_to_ary(curr_node = @root, ary)
     # Traverse and return array of tree
-    return ary if ary.size == @size + 2
+    return ary if ary.size == @size
 
     tree_to_ary(curr_node.left, ary) unless curr_node.left.nil?
     tree_to_ary(curr_node.right, ary) unless curr_node.right.nil?

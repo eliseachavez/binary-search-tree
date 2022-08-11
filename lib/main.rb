@@ -56,3 +56,4 @@ ary = BST.level_order
 puts ary.to_s
 ary = BST.level_order_it
 puts ary.to_s
+BST.pretty_print
