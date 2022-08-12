@@ -95,4 +95,3 @@ BST.pretty_print
 BST.rebalance
 puts 'Here is how the tree looks after calling rebalance'
 BST.pretty_print
-
