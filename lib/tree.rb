@@ -273,4 +273,15 @@ class Tree
   def max(a, b)
     a > b ? a : b
   end
+
+  def depth(num, node = @root, count = 0)
+    # Accepts a node and returns its depth in the tree
+    return count if node.data == num
+
+    if node.data < num
+      depth(num, node.right, count + 1)
+    else
+      depth(num, node.left, count + 1)
+    end
+  end
 end

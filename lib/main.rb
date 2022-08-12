@@ -77,3 +77,12 @@ height = BST.height(4)
 puts "height of BST(6345) is #{height}" # should be 2
 height = BST.height(9)
 puts "height of BST(6345) is #{height}" # should be 3 (9-4-5-7)
+
+# DEPTH #################################################
+depth = BST.depth(7000)
+puts "depth of node 7000 is #{depth}"
+depth = BST.depth(9)
+puts "depth of root node 9 is #{depth}"
+depth = BST.depth(7)
+puts "depth of node 7000 is #{depth}"
+
