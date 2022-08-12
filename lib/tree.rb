@@ -290,6 +290,14 @@ class Tree
     left_tree_height = height_rec(@root.left)
     right_tree_height = height_rec(@root.right)
     diff = left_tree_height - right_tree_height
-    diff.abs(diff) < 2 # returns true if the difference in heights is less than 2 ( 0 or 1)
+    diff.abs() < 2 # returns true if the difference in heights is less than 2 ( 0 or 1)
+  end
+
+  def rebalance
+    # Rebalance an unbalanced tree
+    array = tree_to_ary([])
+    ary = sort_and_delete_dupes(array)
+    @root = build_tree(ary, 0, (ary.size - 1))
+    @size = ary.size
   end
 end
