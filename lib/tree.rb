@@ -284,4 +284,12 @@ class Tree
       depth(num, node.left, count + 1)
     end
   end
+
+  def balanced?
+    # Checks if the tree's left and right subtrees have a height diff of more than one
+    left_tree_height = height_rec(@root.left)
+    right_tree_height = height_rec(@root.right)
+    diff = left_tree_height - right_tree_height
+    diff.abs(diff) < 2 # returns true if the difference in heights is less than 2 ( 0 or 1)
+  end
 end
