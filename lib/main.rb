@@ -84,7 +84,7 @@ puts "depth of node 7000 is #{depth}"
 depth = BST.depth(9)
 puts "depth of root node 9 is #{depth}"
 depth = BST.depth(7)
-puts "depth of node 7000 is #{depth}"
+puts "depth of node 7 is #{depth}"
 # CHECK IF BALANCED and REBALANCE #####################################
 puts "Is the tree balanced? #{BST.balanced?}"
 BST.insert(-1)
