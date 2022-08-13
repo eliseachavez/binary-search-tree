@@ -74,9 +74,9 @@ BST.pretty_print
 height = BST.height(6345)
 puts "height of BST(6345) is #{height}" # should be 1
 height = BST.height(4)
-puts "height of BST(6345) is #{height}" # should be 2
+puts "height of BST(4) is #{height}" # should be 2
 height = BST.height(9)
-puts "height of BST(6345) is #{height}" # should be 3 (9-4-5-7)
+puts "height of BST(9) is #{height}" # should be 3 (9-4-5-7)
 
 # DEPTH #################################################
 depth = BST.depth(7000)
